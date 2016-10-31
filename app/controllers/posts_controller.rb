@@ -20,7 +20,6 @@ class PostsController < ApplicationController
 
   def show
     @group = Group.find params[:group_id]
-    @posts = @group.posts.recent
   end
 
   private
