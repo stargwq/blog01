@@ -1,0 +1,38 @@
+language: ruby
+sudo: false
+
+cache:
+  bundler: true
+  
+services:
+  - memcached
+  - redis
+
+addons:
+  postgresql: "mysql"
+  apt:
+    packages:
+      - postgresql-9.4
+
+before_install:
+  - "rm ${BUNDLE_GEMFILE}.lock"
+  - "gem update --system"
+  - "gem update bundler"
+
+rvm:
+  - 2.3.0
+  - 2.3.1
+  - ruby-head
+
+matrix:
+  include:
+    - rvm: 2.3.1
+      env: "GEM=av:ujs"
+    - rvm: 2.3.0
+      services:
+        - memcached
+        - redis
+        - rabbitmq
+        
+notifications:
+  email: false
